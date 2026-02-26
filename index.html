@@ -1,51 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Qui est ton âme sœur ?</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Trouve ton âme sœur 💘</h1>
+      <div class="hearts-layer" id="heartsLayer"></div>
+      <div class="wrapper">
+        <div class="form-section">
+          <h1>Trouve ton âme sœur 💘</h1>
 
-        <div class="form-group">
+          <div class="form-group">
             <label for="prenom">Prénom</label>
-            <input type="text" id="prenom" placeholder="Ton prénom">
-        </div>
+            <input type="text" id="prenom" placeholder="Ton prénom" />
+          </div>
 
-        <div class="form-group">
+          <div class="form-group">
             <label for="nom">Nom</label>
-            <input type="text" id="nom" placeholder="Ton nom de famille">
-        </div>
+            <input type="text" id="nom" placeholder="Ton nom de famille" />
+          </div>
 
-        <div class="form-group">
+          <div class="form-group">
             <label for="dob">Date de naissance</label>
-            <input type="date" id="dob">
+            <input type="date" id="dob" />
+          </div>
+
+          <div class="form-group">
+            <label>Tu craques plutôt pour...</label>
+            <div class="pills" id="pills">
+              <button type="button" class="pill" data-value="homme">
+                👨 Hommes
+              </button>
+              <button type="button" class="pill" data-value="femme">
+                👩 Femmes
+              </button>
+              <button type="button" class="pill" data-value="both">
+                💜 Les deux
+              </button>
+              <button type="button" class="pill" data-value="other">
+                🌈 Autres
+              </button>
+            </div>
+            <input type="hidden" id="orientation" />
+          </div>
+
+          <p class="error" id="error">Dis-nous en un peu plus sur toi avant de trouver l'amour 💘</p>
+
+          <button class="btn-main" onclick="decouvrir()">Découvrir ✨</button>
         </div>
-
-        <div class="form-group">
-            <label for="orientation">Tu craques plutôt pour...</label>
-            <select id="orientation">
-                <option value="" disabled selected>Choisis</option>
-                <option value="homme">Les hommes</option>
-                <option value="femme">Les femmes</option>
-                <option value="both">Les deux</option>
-                <option value="other">Autres</option>
-            </select>
-        </div>
-
-        <p class="error" id="error">Remplis tous les champs !</p>
-
-        <button onclick="decouvrir()">Découvrir ✨</button>
 
         <div class="result" id="result">
-            <p class="result-name" id="resultName"></p>
-            <div class="hearts-container" id="heartsContainer"></div>
+          <p class="result-name" id="resultName"></p>
+          <button class="btn-retry" onclick="resetForm()">Recommencer</button>
         </div>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
