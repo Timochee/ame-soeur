@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qui est ton âme sœur ?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 460px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            outline: none;
+            background: #fafafa;
+        }
+
+        input:focus {
+            border-color: #f5576c;
+            background: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .result.visible {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .result-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hearts {
+            margin-top: 12px;
+            font-size: 1.4rem;
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .error {
+            color: #f5576c;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error.visible {
+            display: block;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .result-name {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trouve ton âme sœur 💘</h1>
+        <p class="subtitle">Entre tes infos et découvre qui est fait(e) pour toi</p>
+
+        <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" placeholder="Ton prénom">
+        </div>
+
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" placeholder="Ton nom de famille">
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date de naissance</label>
+            <input type="date" id="dob">
+        </div>
+
+        <p class="error" id="error">Remplis tous les champs pour découvrir ton âme sœur !</p>
+
+        <button onclick="decouvrir()">Découvrir ✨</button>
+
+        <div class="result" id="result">
+            <p class="result-label">Ton âme sœur s'appelle...</p>
+            <p class="result-name" id="resultName"></p>
+            <div class="hearts">💕💘💕</div>
+        </div>
+    </div>
+
+    <script>
+        const prenoms = [
+            "Emma", "Louis", "Jade", "Lucas", "Louise", "Hugo",
+            "Léa", "Nathan", "Chloé", "Raphaël", "Alice", "Arthur",
+            "Manon", "Jules", "Camille", "Théo", "Inès", "Gabriel",
+            "Sarah", "Adam", "Léna", "Tom", "Clara", "Noah",
+            "Charlotte", "Maxime", "Zoé", "Ethan", "Juliette", "Mathis",
+            "Eva", "Axel", "Lina", "Victor", "Anna", "Alexandre",
+            "Marie", "Baptiste", "Margot", "Romain", "Pauline", "Antoine",
+            "Laura", "Julien", "Romane", "Nicolas", "Célia", "Adrien",
+            "Elise", "Bastien"
+        ];
+
+        function decouvrir() {
+            const prenom = document.getElementById("prenom").value.trim();
+            const nom = document.getElementById("nom").value.trim();
+            const dob = document.getElementById("dob").value;
+            const errorEl = document.getElementById("error");
+            const resultEl = document.getElementById("result");
+            const resultName = document.getElementById("resultName");
+
+            resultEl.classList.remove("visible");
+            errorEl.classList.remove("visible");
+
+            if (!prenom || !nom || !dob) {
+                errorEl.classList.add("visible");
+                return;
+            }
+
+            let chosenName;
+
+            if (
+                prenom.toLowerCase() === "gabrielle" &&
+                nom.toLowerCase() === "cozza" &&
+                dob === "2004-09-06"
+            ) {
+                chosenName = "Timo";
+            } else {
+                // Seed basé sur les inputs pour un résultat stable par personne
+                const seed = (prenom + nom + dob).toLowerCase();
+                let hash = 0;
+                for (let i = 0; i < seed.length; i++) {
+                    hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+                    hash |= 0;
+                }
+                const index = Math.abs(hash) % prenoms.length;
+                chosenName = prenoms[index];
+            }
+
+            // Petit délai pour l'effet dramatique
+            setTimeout(() => {
+                resultName.textContent = chosenName;
+                resultEl.classList.add("visible");
+            }, 400);
+        }
+
+        // Permettre la soumission avec Enter
+        document.querySelectorAll("input").forEach(input => {
+            input.addEventListener("keydown", e => {
+                if (e.key === "Enter") decouvrir();
+            });
+        });
+    </script>
+</body>
+</html>
