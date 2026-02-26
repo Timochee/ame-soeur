@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Forme de coeur parfaite utilisée comme masque -->
+    <clipPath id="heart">
+      <path d="M32,56 C32,56 4,36 4,20 C4,10 12,4 21,4 C26,4 30,7 32,10 C34,7 38,4 43,4 C52,4 60,10 60,20 C60,36 32,56 32,56Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Toutes les facettes sont découpées par la forme coeur -->
+  <g clip-path="url(#heart)">
+    <!-- Fond -->
+    <rect x="0" y="0" width="64" height="64" fill="#e84393"/>
+
+    <!-- Facettes du haut - lobe gauche -->
+    <polygon points="4,4 21,4 16,16" fill="#fcc9dc"/>
+    <polygon points="4,4 4,20 16,16" fill="#f8a5c2"/>
+    <polygon points="21,4 32,10 16,16" fill="#f9b5d0"/>
+    <polygon points="4,20 16,16 12,28" fill="#f06292"/>
+    <polygon points="16,16 32,10 24,28" fill="#f48fb1"/>
+    <polygon points="16,16 12,28 24,28" fill="#ec407a"/>
+
+    <!-- Facettes du haut - lobe droit -->
+    <polygon points="60,4 43,4 48,16" fill="#f5b7cc"/>
+    <polygon points="60,4 60,20 48,16" fill="#f192b0"/>
+    <polygon points="43,4 32,10 48,16" fill="#f0a8c4"/>
+    <polygon points="60,20 48,16 52,28" fill="#e91e7b"/>
+    <polygon points="48,16 32,10 40,28" fill="#e88aab"/>
+    <polygon points="48,16 52,28 40,28" fill="#d44a7a"/>
+
+    <!-- Facette centrale haute -->
+    <polygon points="24,28 32,10 40,28" fill="#e84393"/>
+
+    <!-- Facettes basses - gauche -->
+    <polygon points="4,20 12,28 8,40" fill="#d63384"/>
+    <polygon points="12,28 24,28 18,40" fill="#c2185b"/>
+    <polygon points="8,40 12,28 18,40" fill="#d63384"/>
+    <polygon points="8,40 18,40 32,56" fill="#ad1457"/>
+
+    <!-- Facettes basses - droite -->
+    <polygon points="60,20 52,28 56,40" fill="#c62878"/>
+    <polygon points="52,28 40,28 46,40" fill="#b71c5e"/>
+    <polygon points="56,40 52,28 46,40" fill="#c62878"/>
+    <polygon points="56,40 46,40 32,56" fill="#a11350"/>
+
+    <!-- Facettes basses - centre -->
+    <polygon points="24,28 32,42 18,40" fill="#b71c5e"/>
+    <polygon points="40,28 32,42 46,40" fill="#a11350"/>
+    <polygon points="24,28 40,28 32,42" fill="#c2185b"/>
+    <polygon points="18,40 32,42 32,56" fill="#960d48"/>
+    <polygon points="46,40 32,42 32,56" fill="#880b40"/>
+
+    <!-- Reflets brillants -->
+    <polygon points="4,4 21,4 14,10" fill="#ffffff" opacity="0.5"/>
+    <polygon points="8,8 16,6 12,14" fill="#ffffff" opacity="0.35"/>
+    <polygon points="4,10 8,8 6,16" fill="#ffffff" opacity="0.25"/>
+    <polygon points="43,4 50,8 46,6" fill="#ffffff" opacity="0.2"/>
+    <!-- Reflet central -->
+    <polygon points="32,10 28,18 32,26" fill="#ffffff" opacity="0.1"/>
+  </g>
+</svg>
