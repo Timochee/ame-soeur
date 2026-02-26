@@ -12,6 +12,7 @@ body {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
+    overflow: hidden;
 }
 
 .container {
@@ -22,18 +23,14 @@ body {
     width: 100%;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 h1 {
     font-size: 1.9rem;
     color: #2d2d2d;
-    margin-bottom: 8px;
-}
-
-.subtitle {
-    color: #888;
-    font-size: 0.95rem;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
 }
 
 .form-group {
@@ -49,7 +46,7 @@ label {
     margin-bottom: 6px;
 }
 
-input {
+input, select {
     width: 100%;
     padding: 12px 16px;
     border: 2px solid #e0e0e0;
@@ -58,11 +55,19 @@ input {
     transition: border-color 0.3s;
     outline: none;
     background: #fafafa;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
-input:focus {
+select {
+    cursor: pointer;
+    background: #fafafa url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 16px center;
+    padding-right: 40px;
+}
+
+input:focus, select:focus {
     border-color: #f5576c;
-    background: #fff;
+    background-color: #fff;
 }
 
 button {
@@ -88,51 +93,108 @@ button:active {
     transform: translateY(0);
 }
 
+/* Result */
 .result {
     margin-top: 30px;
     display: none;
+    position: relative;
 }
 
 .result.visible {
     display: block;
-    animation: fadeInUp 0.6s ease-out;
-}
-
-.result-label {
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 8px;
 }
 
 .result-name {
-    font-size: 2.2rem;
+    font-size: 2.6rem;
     font-weight: 700;
     background: linear-gradient(135deg, #f093fb, #f5576c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    opacity: 0;
+    transform: scale(0.3);
+    animation: revealName 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-.hearts {
-    margin-top: 12px;
+.hearts-container {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.hearts-container span {
+    font-size: 1.6rem;
+    opacity: 0;
+    animation: popHeart 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.hearts-container span:nth-child(1) { animation-delay: 0.6s; }
+.hearts-container span:nth-child(2) { animation-delay: 0.75s; }
+.hearts-container span:nth-child(3) { animation-delay: 0.9s; }
+
+/* Floating hearts background */
+.floating-heart {
+    position: fixed;
     font-size: 1.4rem;
-    animation: pulse 1.2s infinite;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatUp 3s ease-out forwards;
 }
 
-@keyframes fadeInUp {
-    from {
+@keyframes revealName {
+    0% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: scale(0.3);
+        filter: blur(10px);
     }
-    to {
+    50% {
         opacity: 1;
-        transform: translateY(0);
+        filter: blur(0);
+    }
+    70% {
+        transform: scale(1.08);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes popHeart {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-20deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(0) rotate(0deg);
+    }
+    10% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100vh) rotate(360deg);
     }
 }
 
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
+    50% { transform: scale(1.2); }
+}
+
+.hearts-container span.pulse {
+    animation: pulse 1.2s ease-in-out infinite;
 }
 
 .error {
@@ -144,7 +206,13 @@ button:active {
 
 .error.visible {
     display: block;
-    animation: fadeInUp 0.3s ease-out;
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
 }
 
 @media (max-width: 500px) {
@@ -157,6 +225,6 @@ button:active {
     }
 
     .result-name {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 }

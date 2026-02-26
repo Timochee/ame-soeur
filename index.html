@@ -9,7 +9,6 @@
 <body>
     <div class="container">
         <h1>Trouve ton âme sœur 💘</h1>
-        <p class="subtitle">Entre tes infos et découvre qui est fait(e) pour toi</p>
 
         <div class="form-group">
             <label for="prenom">Prénom</label>
@@ -26,14 +25,24 @@
             <input type="date" id="dob">
         </div>
 
-        <p class="error" id="error">Remplis tous les champs pour découvrir ton âme sœur !</p>
+        <div class="form-group">
+            <label for="orientation">Tu craques plutôt pour...</label>
+            <select id="orientation">
+                <option value="" disabled selected>Choisis</option>
+                <option value="homme">Les hommes</option>
+                <option value="femme">Les femmes</option>
+                <option value="both">Les deux</option>
+                <option value="other">Autres</option>
+            </select>
+        </div>
+
+        <p class="error" id="error">Remplis tous les champs !</p>
 
         <button onclick="decouvrir()">Découvrir ✨</button>
 
         <div class="result" id="result">
-            <p class="result-label">Ton âme sœur s'appelle...</p>
             <p class="result-name" id="resultName"></p>
-            <div class="hearts">💕💘💕</div>
+            <div class="hearts-container" id="heartsContainer"></div>
         </div>
     </div>
 
