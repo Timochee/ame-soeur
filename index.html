@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Qui est ton âme sœur ?</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -50,16 +53,18 @@
 
           <p class="error" id="error">Dis-nous en un peu plus sur toi avant de trouver l'amour 💘</p>
 
-          <button class="btn-main" onclick="decouvrir()">Découvrir ✨</button>
+          <button class="btn-main" id="btnMain">Découvrir ✨</button>
         </div>
 
         <div class="result" id="result">
+          <p class="result-intro" id="resultIntro">Ton âme sœur s'appelle...</p>
           <p class="result-name" id="resultName"></p>
-          <button class="btn-retry" onclick="resetForm()">Recommencer</button>
+          <button class="btn-retry" id="btnRetry">Recommencer</button>
         </div>
       </div>
     </div>
 
+    <script src="prenoms.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
