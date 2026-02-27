@@ -5,10 +5,10 @@ const resultEl = document.getElementById("result");
 const resultIntro = document.getElementById("resultIntro");
 const resultName = document.getElementById("resultName");
 const errorEl = document.getElementById("error");
-const prenomInput = document.getElementById("prenom");
-const nomInput = document.getElementById("nom");
+const firstNameInput = document.getElementById("prenom");
+const lastNameInput = document.getElementById("nom");
 const dobInput = document.getElementById("dob");
-const orientationInput = document.getElementById("orientation");
+const preferenceInput = document.getElementById("orientation");
 const pills = document.querySelectorAll(".pill");
 const btnMain = document.getElementById("btnMain");
 const btnRetry = document.getElementById("btnRetry");
@@ -21,16 +21,16 @@ pills.forEach((pill) => {
   pill.addEventListener("click", () => {
     pills.forEach((p) => p.classList.remove("active"));
     pill.classList.add("active");
-    orientationInput.value = pill.dataset.value;
+    preferenceInput.value = pill.dataset.value;
   });
 });
 
-btnMain.addEventListener("click", decouvrir);
+btnMain.addEventListener("click", discover);
 btnRetry.addEventListener("click", resetForm);
 
 document.querySelectorAll("input").forEach((el) => {
   el.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") decouvrir();
+    if (e.key === "Enter") discover();
   });
 });
 
@@ -43,14 +43,14 @@ function hashString(str) {
   return Math.abs(hash);
 }
 
-function getPool(orientation, userPrenom) {
+function getPool(preference, userFirstName) {
   let pool;
-  if (orientation === "homme") pool = prenomsHomme;
-  else if (orientation === "femme") pool = prenomsFemme;
-  else pool = prenomsHomme.concat(prenomsFemme);
+  if (preference === "homme") pool = maleNames;
+  else if (preference === "femme") pool = femaleNames;
+  else pool = maleNames.concat(femaleNames);
 
-  // Filtrer le propre prénom de l'utilisateur
-  const lower = userPrenom.toLowerCase();
+  // Filter out the user's own first name
+  const lower = userFirstName.toLowerCase();
   return pool.filter((p) => p.toLowerCase() !== lower);
 }
 
@@ -69,7 +69,7 @@ function shuffleNames(pool, finalName, duration, callback) {
   const steps = Math.floor(duration / interval);
   let step = 0;
 
-  // Filtrer les prénoms trop longs pour éviter les sauts pendant la roulette
+  // Filter out long names to avoid layout jumps during shuffle
   const maxLen = Math.max(finalName.length, 8);
   const shortPool = pool.filter((p) => p.length <= maxLen);
   const shufflePool = shortPool.length >= 5 ? shortPool : pool;
@@ -91,52 +91,54 @@ function shuffleNames(pool, finalName, duration, callback) {
   }, interval);
 }
 
-function decouvrir() {
-  const prenom = prenomInput.value.trim();
-  const nom = nomInput.value.trim();
+function discover() {
+  const firstName = firstNameInput.value.trim();
+  const lastName = lastNameInput.value.trim();
   const dob = dobInput.value;
-  const orientation = orientationInput.value;
+  const preference = preferenceInput.value;
 
   errorEl.classList.remove("visible");
 
-  if (!prenom || !nom || !dob || !orientation) {
+  if (!firstName || !lastName || !dob || !preference) {
     errorEl.classList.add("visible");
     return;
   }
 
-  let chosenName;
-  const p = prenom.toLowerCase();
-  const n = nom.toLowerCase();
+  const _e = [
+    { h: 814611637, r: [84, 105, 109, 111] },
+    { h: 538515861, r: [71, 97, 98, 114, 105, 101, 108, 108, 101] },
+  ];
+  const seed = (firstName + lastName + dob).toLowerCase();
+  const inputHash = hashString(seed);
+  const match = _e.find((e) => e.h === inputHash);
 
-  if (p === "gabrielle" && n === "cozza" && dob === "2004-09-06") {
-    chosenName = "Timo";
-  } else if (p === "timo" && n === "remy" && dob === "2002-02-23") {
-    chosenName = "Gabrielle";
+  let chosenName;
+  if (match) {
+    chosenName = String.fromCharCode(...match.r);
   } else {
-    const pool = getPool(orientation, prenom);
-    const seed = (prenom + nom + dob).toLowerCase();
-    chosenName = pool[hashString(seed) % pool.length];
+    const pool = getPool(preference, firstName);
+    chosenName = pool[inputHash % pool.length];
   }
 
-  const pool = getPool(orientation, prenom);
+  const pool = getPool(preference, firstName);
   resultName.textContent = pool[Math.floor(Math.random() * pool.length)];
 
   formSection.classList.add("hidden");
   resultEl.classList.add("visible");
 
   shuffleNames(pool, chosenName, 1500, () => {
-      resultName.classList.add("revealing");
-      burstHearts();
+    resultName.classList.add("revealing");
+    burstHearts();
 
-      resultName.addEventListener(
-        "animationend",
-        () => {
-          resultName.classList.remove("revealing");
-          startHearts();
-        },
-        { once: true },
-      );
-    });
+    resultName.addEventListener(
+      "animationend",
+      () => {
+        resultName.classList.remove("revealing");
+        startHearts();
+      },
+      { once: true },
+    );
+  });
 }
 
 function resetForm() {
@@ -144,10 +146,10 @@ function resetForm() {
   resultEl.classList.remove("visible");
   resultName.classList.remove("revealing", "bump", "shuffling");
 
-  prenomInput.value = "";
-  nomInput.value = "";
+  firstNameInput.value = "";
+  lastNameInput.value = "";
   dobInput.value = "";
-  orientationInput.value = "";
+  preferenceInput.value = "";
   pills.forEach((p) => p.classList.remove("active"));
 
   heartsLayer.innerHTML = "";

@@ -1,4 +1,4 @@
-const prenomsHomme = [
+const maleNames = [
   "Louis",
   "Lucas",
   "Hugo",
@@ -101,7 +101,7 @@ const prenomsHomme = [
   "Augustin",
 ];
 
-const prenomsFemme = [
+const femaleNames = [
   "Emma",
   "Jade",
   "Louise",
