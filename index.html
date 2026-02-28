@@ -3,19 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Qui est ton âme sœur ?</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+    <meta name="theme-color" content="" />
+    <link rel="icon" href="" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="hearts-layer" id="heartsLayer"></div>
+    <main class="container">
+      <div class="emoji-layer" id="emojiLayer" aria-hidden="true"></div>
       <div class="wrapper">
-        <div class="form-section">
-          <h1>Trouve ton âme sœur 💘</h1>
+        <div class="form-section" role="form" aria-label="Formulaire">
+          <h1></h1>
 
           <div class="form-group">
             <label for="prenom">Prénom</label>
@@ -29,42 +38,29 @@
 
           <div class="form-group">
             <label for="dob">Date de naissance</label>
-            <input type="date" id="dob" />
+            <input type="date" id="dob" min="1900-01-01" />
           </div>
 
-          <div class="form-group">
-            <label>Tu craques plutôt pour...</label>
-            <div class="pills" id="pills">
-              <button type="button" class="pill" data-value="homme">
-                👨 Hommes
-              </button>
-              <button type="button" class="pill" data-value="femme">
-                👩 Femmes
-              </button>
-              <button type="button" class="pill" data-value="both">
-                💜 Les deux
-              </button>
-              <button type="button" class="pill" data-value="other">
-                🌈 Autres
-              </button>
-            </div>
-            <input type="hidden" id="orientation" />
-          </div>
+          <div id="pillGroupsContainer"></div>
 
-          <p class="error" id="error">Dis-nous en un peu plus sur toi avant de trouver l'amour 💘</p>
+          <p class="error" id="error" role="alert" aria-live="assertive"></p>
 
-          <button class="btn-main" id="btnMain">Découvrir ✨</button>
+          <button class="btn-main" id="btnMain"></button>
         </div>
 
-        <div class="result" id="result">
-          <p class="result-intro" id="resultIntro">Ton âme sœur s'appelle...</p>
+        <div class="result" id="result" aria-live="polite">
+          <p class="result-intro" id="resultIntro"></p>
+          <img class="result-img" id="resultImg" alt="" />
           <p class="result-name" id="resultName"></p>
-          <button class="btn-retry" id="btnRetry">Recommencer</button>
+          <div class="result-actions" id="resultActions">
+            <button class="btn-retry" id="btnRetry"></button>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
 
-    <script src="prenoms.js"></script>
-    <script src="script.js"></script>
+    <script src="config.js"></script>
+    <script src="data.js"></script>
+    <script src="js/engine.js"></script>
   </body>
 </html>
